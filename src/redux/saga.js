@@ -1,14 +1,16 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import api from "./api";
+import {push} from 'react-router-redux';
+import Notificator from "../utils/Notificator";
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* fetchWalletSaga({username, password}) {
     try {
         const wallet = yield call(api.getWallet, {username, password});
-        console.log("SAGA", formatWallet(wallet))
+        yield put(push('/dashboard'))
         yield put({type: "FETCH_WALLET_SUCCESS", wallet: formatWallet(wallet)});
     } catch (e) {
-        console.log(e)
+        Notificator.error('Não foi possivel obter seus dados.')
         yield put({type: "FETCH_WALLET_ERROR", message: e.message});
     }
 }

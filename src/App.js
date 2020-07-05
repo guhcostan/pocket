@@ -1,28 +1,16 @@
 import React from 'react';
 import './App.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
-} from "react-router-dom";
-import {HomeScreen} from "./screens/HomeScreen";
 import {Provider} from "react-redux";
-import createStore from './createReduxStore'
-import store from "./createReduxStore";
+import store from './createReduxStore'
+import AppShell from "./screens/AppShell";
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 function App() {
   return (
       <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route path="/">
-            <HomeScreen/>
-          </Route>
-        </Switch>
-      </Router>
+          <AppShell/>
+          <ReactNotification />
       </Provider>
   );
 }
